@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,14 +12,24 @@ namespace deliciousfeed.Controllers
     [Route("[controller]")]
     public class WebHookController : Controller
     {
+        private static readonly List<string> _logs = new List<string>();
+        public IActionResult Logs()
+        {
+            var result = string.Join("\r\n", _logs);
+            return Ok(result);
+        }
+
         public async Task<IActionResult> Post(Update update)
         {
             var message = update.Message;
 
-            Console.WriteLine("Received Message from {0}", message.Chat.Id);
+            //Console.WriteLine("Received Message from {0}", message.Chat.Id);
+            _logs.Add(string.Format("Received Message from {0}", message.Chat.Id));
 
             if (message.Type == MessageType.TextMessage)
             {
+                _logs.Add(string.Format("Received Message: {0}", message.Text));
+
                 // Echo each Message
                 await TelegramBotConfig.Client.SendTextMessageAsync(message.Chat.Id, message.Text);
             }
