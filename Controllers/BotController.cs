@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot.Types;
@@ -31,10 +29,10 @@ namespace deliciousfeed.Controllers
                 // Echo each Message
                 await TelegramBotConfig.Client.SendTextMessageAsync(message.Chat.Id, message.Text);
             }
-            else
-            {
-                Console.WriteLine($"Received Message Type: {message.Type}");
-            }
+
+            Console.WriteLine("Received data from Telegram:");
+            var jsonContent = JsonConvert.SerializeObject(update);
+            Console.WriteLine(jsonContent);
 
             return Ok();
         }
