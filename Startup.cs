@@ -20,9 +20,11 @@ namespace deliciousfeed
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-
-            //var hookUrl = string.Format("https://deliciousfeed.herokuapp.com/WebHook");
-            //TelegramBotConfig.Client.SetWebhookAsync(hookUrl).Wait();
+            
+            var hookUrl = string.Format("https://deliciousfeed.herokuapp.com/Bot");
+            Console.WriteLine($"Registering Telegram WebHook Url to: {hookUrl}");
+            TelegramBotConfig.Client.SetWebhookAsync(hookUrl).Wait();
+            Console.WriteLine("Telegram hook url set successfully.");
         }
 
         public IConfigurationRoot Configuration { get; }

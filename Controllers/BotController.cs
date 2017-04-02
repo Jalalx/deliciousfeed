@@ -37,8 +37,9 @@ namespace deliciousfeed.Controllers
         {
             var message = update.Message;
 
-            //Console.WriteLine("Received Message from {0}", message.Chat.Id);
-            _logs.Add(string.Format("Received Message from {0}", message.Chat.Id));
+            var logMessage = string.Format("Received Message from {0}", message.Chat.Id);
+            Console.WriteLine(logMessage);
+            _logs.Add(logMessage);
 
             if (message.Type == MessageType.TextMessage)
             {
