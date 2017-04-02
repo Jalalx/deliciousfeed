@@ -33,6 +33,7 @@ namespace deliciousfeed.Controllers
             }
         }
 
+        [HttpPost]
         public async Task<IActionResult> Post(Update update)
         {
             var message = update.Message;
