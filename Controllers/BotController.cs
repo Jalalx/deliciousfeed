@@ -9,10 +9,18 @@ using Telegram.Bot.Types.Enums;
 
 namespace deliciousfeed.Controllers
 {
-    [Route("[controller]")]
-    public class WebHookController : Controller
+    [Route("Bot")]
+    public class BotController : Controller
     {
         private static readonly List<string> _logs = new List<string>();
+        
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return Ok($"OK\r\n{DateTime.Now}");
+        }
+
+        [HttpGet]
         public IActionResult Logs()
         {
             var result = string.Join("\r\n", _logs);

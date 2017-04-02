@@ -20,9 +20,9 @@ namespace deliciousfeed
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-            
-            var hookUrl = string.Format("https://deliciousfeed.herokuapp.com/WebHook");
-            TelegramBotConfig.Client.SetWebhookAsync(hookUrl).Wait();
+
+            //var hookUrl = string.Format("https://deliciousfeed.herokuapp.com/WebHook");
+            //TelegramBotConfig.Client.SetWebhookAsync(hookUrl).Wait();
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -40,7 +40,13 @@ namespace deliciousfeed
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action}/{id?}",
+                    defaults: new { controller = "Bot", action = "Index" });
+            });
         }
     }
 }
