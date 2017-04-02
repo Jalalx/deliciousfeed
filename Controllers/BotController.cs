@@ -9,11 +9,10 @@ using Telegram.Bot.Types.Enums;
 
 namespace deliciousfeed.Controllers
 {
-    [Route("Bot")]
     public class BotController : Controller
     {
         private static readonly List<string> _logs = new List<string>();
-        
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -24,7 +23,14 @@ namespace deliciousfeed.Controllers
         public IActionResult Logs()
         {
             var result = string.Join("\r\n", _logs);
-            return Ok(result);
+            if (result.Any())
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return Ok("No logs to display.");
+            }
         }
 
         public async Task<IActionResult> Post(Update update)
