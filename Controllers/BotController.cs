@@ -34,7 +34,7 @@ namespace deliciousfeed.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Update update)
+        public async Task<IActionResult> Post([FromBody]Update update)
         {
             var message = update.Message;
 
