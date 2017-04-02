@@ -21,7 +21,7 @@ namespace deliciousfeed
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
             
-            var hookUrl = string.Format("https://deliciousfeed.herokuapp.com/Bot");
+            var hookUrl = string.Format("https://deliciousfeed.herokuapp.com/Bot/Post");
             Console.WriteLine($"Registering Telegram WebHook Url to: {hookUrl}");
             TelegramBotConfig.Client.SetWebhookAsync(hookUrl).Wait();
             Console.WriteLine("Telegram hook url set successfully.");
